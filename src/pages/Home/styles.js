@@ -7,6 +7,8 @@ export const Container = styled.div`
   width: 100%;
   max-width: 1180px;
   margin: 30px auto 0;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Cards = styled.div`

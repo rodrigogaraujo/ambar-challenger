@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { WiThermometer } from 'react-icons/wi';
+import ReactLoading from 'react-loading';
 
 import Card from './Components/Card';
 import ContainerDetails from './Components/ContainerDetails';
@@ -10,9 +11,11 @@ import { Container, Content, Cards } from './styles';
 import { temperatureLoad } from '~/store/modules/temperature/actions';
 
 const Home = () => {
-  const { data } = useSelector(state => state.temperature);
+  const { data, loading, tempMax, tempMin } = useSelector(
+    state => state.temperature
+  );
   const dispatch = useDispatch();
-
+  console.log(tempMax, tempMin);
   useEffect(() => {
     dispatch(temperatureLoad('Teresina'));
   }, [dispatch]);
@@ -24,7 +27,11 @@ const Home = () => {
     [dispatch]
   );
 
-  return (
+  return loading ? (
+    <Container>
+      <ReactLoading color="#000" height={667} width={375} />
+    </Container>
+  ) : (
     <Container>
       <Cards>
         <Card

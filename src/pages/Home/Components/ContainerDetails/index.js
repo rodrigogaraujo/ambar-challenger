@@ -61,11 +61,11 @@ const ContainerDetails = ({ data }) => {
         <h3>{data.description}</h3>
       </Row>
       <h2>
-        Temp. máxima: {(data.temp_min - 273.15).toFixed(2)}
+        Temp. máxima: {(data.temp_max - 273.15).toFixed(2)}
         <WiCelsius />
       </h2>
       <h2>
-        Temp. mínima: {(data.temp_max - 273.15).toFixed(2)}
+        Temp. mínima: {(data.temp_min - 273.15).toFixed(2)}
         <WiCelsius />
       </h2>
       <Button type="button" onClick={() => history.push(`/compare`)}>
