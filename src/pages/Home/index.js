@@ -9,15 +9,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container, Content, Cards } from './styles';
 
 import { temperatureLoad } from '~/store/modules/temperature/actions';
+import { initialLoad } from '~/store/modules/initialData/actions';
 
 const Home = () => {
-  const { data, loading, tempMax, tempMin } = useSelector(
-    state => state.temperature
+  const { data, loading } = useSelector(state => state.temperature);
+  const { data: initialData, loading: loadingInitial } = useSelector(
+    state => state.initial
   );
   const dispatch = useDispatch();
-  console.log(tempMax, tempMin);
   useEffect(() => {
     dispatch(temperatureLoad('Teresina'));
+    dispatch(initialLoad());
   }, [dispatch]);
 
   const handleCity = useCallback(
@@ -27,7 +29,7 @@ const Home = () => {
     [dispatch]
   );
 
-  return loading ? (
+  return loading || loadingInitial ? (
     <Container>
       <ReactLoading color="#000" height={667} width={375} />
     </Container>
@@ -36,19 +38,23 @@ const Home = () => {
       <Cards>
         <Card
           city="Teresina"
-          value={27}
+          value={initialData.cityOne ? initialData.cityOne - 273.15 : 0}
           handleClick={() => handleCity('Teresina')}
         >
           <WiThermometer size={32} />
         </Card>
         <Card
           city="Rio de Janeiro"
-          value={28}
+          value={initialData.cityTwo ? initialData.cityTwo - 273.15 : 0}
           handleClick={() => handleCity('Rio de Janeiro')}
         >
           <WiThermometer size={32} />
         </Card>
-        <Card city="Recife" value={30} handleClick={() => handleCity('Recife')}>
+        <Card
+          city="Recife"
+          value={initialData.cityThree ? initialData.cityThree - 273.15 : 0}
+          handleClick={() => handleCity('Recife')}
+        >
           <WiThermometer size={32} />
         </Card>
       </Cards>

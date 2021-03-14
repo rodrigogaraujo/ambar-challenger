@@ -9,8 +9,8 @@ const INITIAL_STATE = {
     icon: '',
     description: '',
   },
-  tempMax: 0,
-  tempMin: 0,
+  tempMax: { city: '', value: 0 },
+  tempMin: { city: '', value: 0 },
   loading: true,
   error: false,
 };
@@ -24,37 +24,49 @@ export default function temperature(state = INITIAL_STATE, action) {
         draft.error = false;
         const tempMax = localStorage.getItem('@challengerAmbar:tempMax');
         const tempMin = localStorage.getItem('@challengerAmbar:tempMin');
+        const objMax = {
+          city: action.payload.data.city,
+          value: action.payload.data.temp_max,
+        };
+        const objMin = {
+          city: action.payload.data.city,
+          value: action.payload.data.temp_min,
+        };
         if (tempMax && tempMin) {
-          if (action.payload.data.temp_max > parseFloat(tempMax)) {
+          if (
+            action.payload.data.temp_max > parseFloat(JSON.parse(tempMax).value)
+          ) {
             localStorage.setItem(
               '@challengerAmbar:tempMax',
-              action.payload.data.temp_max
+              JSON.stringify(objMax)
             );
-            draft.tempMax = action.payload.data.temp_max;
+            draft.tempMax = objMax;
           } else {
-            draft.tempMax = parseFloat(tempMax);
+            draft.tempMax = JSON.parse(tempMax);
           }
-          if (action.payload.data.temp_min < parseFloat(tempMin)) {
+          if (
+            action.payload.data.temp_min < parseFloat(JSON.parse(tempMin).value)
+          ) {
             localStorage.setItem(
               '@challengerAmbar:tempMin',
-              action.payload.data.temp_min
+              JSON.stringify(objMin)
             );
-            draft.tempMin = action.payload.data.temp_min;
+            draft.tempMin = objMin;
           } else {
-            draft.tempMin = parseFloat(tempMin);
+            draft.tempMin = JSON.parse(tempMin);
           }
         } else {
           localStorage.setItem(
             '@challengerAmbar:tempMax',
-            action.payload.data.temp_max
+            JSON.stringify(objMax)
           );
-          draft.tempMax = action.payload.data.temp_max;
+          draft.tempMax = JSON.parse(tempMax);
 
           localStorage.setItem(
             '@challengerAmbar:tempMin',
-            action.payload.data.temp_min
+            JSON.stringify(objMin)
           );
-          draft.tempMin = action.payload.data.temp_min;
+          draft.tempMin = JSON.parse(tempMin);
         }
         break;
       }
