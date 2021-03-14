@@ -1,8 +1,9 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-
 import env from 'react-dotenv';
+
+import { firestore } from '~/config/FirebaseUtils';
 
 import { temperatureFailure, temperatureSuccess } from './actions';
 export function* loadTemperature({ payload }) {
@@ -21,6 +22,23 @@ export function* loadTemperature({ payload }) {
       description: resp.data.weather[0].description,
     };
     yield put(temperatureSuccess(obj));
+    firestore.collection('City').doc(city).set({
+      city: resp.data.name,
+      temp: resp.data.main.temp,
+      temp_min: resp.data.main.temp_min,
+      temp_max: resp.data.main.temp_max,
+      icon: resp.data.weather[0].icon,
+      description: resp.data.weather[0].description,
+    });
+    firestore.collection('Log').add({
+      city: city,
+      temp: resp.data.main.temp,
+      temp_min: resp.data.main.temp_min,
+      temp_max: resp.data.main.temp_max,
+      icon: resp.data.weather[0].icon,
+      description: resp.data.weather[0].description,
+      date: new Date(),
+    });
   } catch (error) {
     yield put(temperatureFailure());
     toast.error('Erro ao carregar os dados!');

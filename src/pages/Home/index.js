@@ -11,7 +11,6 @@ import { temperatureLoad } from '~/store/modules/temperature/actions';
 
 const Home = () => {
   const { data } = useSelector(state => state.temperature);
-  console.log('data', data);
   const dispatch = useDispatch();
 
   useEffect(() => {

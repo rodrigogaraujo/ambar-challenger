@@ -10,6 +10,7 @@
     "antd": "^4.4.3",
     "axios": "^0.19.2",
     "customize-cra-react-refresh": "^1.1.0",
+    "firebase": "^8.3.0",
     "history": "4.10.1",
     "immer": "^7.0.7",
     "json-server": "^0.16.1",
@@ -93,6 +94,16 @@
     }
   },
   "react-dotenv": {
-    "whitelist": ["API_URL", "OPEN_WEATHER_KEY"]
+    "whitelist": [
+      "API_URL",
+      "OPEN_WEATHER_KEY",
+      "FIREBASE_API_KEY",
+      "FIREBASE_AUTH_DOMAIN",
+      "FIREBASE_PROJECT_ID",
+      "FIREBASE_STORAGE_BUCKET",
+      "FIREBASE_MESSAGING_SENDER_ID",
+      "FIREBASE_APP_ID",
+      "FIREBASE_MEASUREMENT_ID"
+    ]
   }
 }
