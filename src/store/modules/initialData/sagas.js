@@ -1,7 +1,7 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-// import env from 'react-dotenv';
+
 import { initialFailure, initialSuccess } from './actions';
 export function* loadInitial() {
   try {
@@ -24,7 +24,6 @@ export function* loadInitial() {
     };
     yield put(initialSuccess(obj));
   } catch (error) {
-    console.log(error);
     yield put(initialFailure());
     toast.error('Erro ao carregar os dados!');
   }
