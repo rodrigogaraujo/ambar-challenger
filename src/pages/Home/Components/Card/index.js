@@ -8,7 +8,7 @@ const Card = ({ city, value, children, handleClick }) => {
       <h1>{city}</h1>
       <Row>
         {children}
-        <span>{value}°C</span>
+        <span>{value.toFixed(2)}°C</span>
       </Row>
     </Container>
   );

@@ -1,7 +1,6 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import env from 'react-dotenv';
 
 import { firestore } from '~/config/FirebaseUtils';
 
@@ -11,7 +10,7 @@ export function* loadTemperature({ payload }) {
     const { city } = payload;
     const resp = yield call(
       axios.get,
-      `${env.API_URL}?q=${city}&appid=${env.OPEN_WEATHER_KEY}&lang=pt`
+      `${process.env.REACT_APP_API_URL}?q=${city}&appid=${process.env.REACT_APP_OPEN_WEATHER_KEY}&lang=pt`
     );
     const obj = {
       city: resp.data.name,

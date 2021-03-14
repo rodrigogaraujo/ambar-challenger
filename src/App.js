@@ -10,6 +10,7 @@ import Routes from './routes';
 import history from './services/history';
 
 import store from './store';
+require('dotenv').config();
 
 function App() {
   return (
