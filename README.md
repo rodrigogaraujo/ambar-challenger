@@ -16,6 +16,7 @@ Front end of the AmbarChallenger
 - Redux saga
 - Redux saga testing
 - React icons
+- React toastify
 
 # Preview
 <img src="https://github.com/rodrigogaraujo/ambar-challenger/blob/main/Screenshot%20from%202021-03-14%2019-05-01.png" width="450"/>
